@@ -33,31 +33,12 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## コンフィグ
-# MAGIC #### 以下のコンフィグは、ご自身の環境に合わせて書き換えてください
+# MAGIC ## コンフィグのロード
+# MAGIC #### 別のNotebook `config` の中の変数名を自身の環境用に書き換えてから下記を実行してください。
 
 # COMMAND ----------
 
-# 作成するテーブルとVector Search Indexを格納するカタログ
-catalog_name = "nabe_rag_demo_catalog"
-# 作成するテーブルとVector Search Indexを格納するスキーマ (上記のカタログ配下にスキーマが作成されます)
-schema_name = "rag_word"
-
-# 作成するVector Search Endpointに付ける名前
-vector_search_endpoint_name = "one-env-shared-prod"
-# 作成するVector Search Indexに付ける名前
-index_name = "word_rag_vector_index"
-# 前のNotebook「01_Wordファイル取り込み・加工」で加工済みデータを書き込んだテーブル名
-source_table_name = "chunked_contents"
-
-# 埋め込みモデルを動作させるモデルサービングエンドポイントに付ける名前
-embedding_endpoint_name = "openai-embedding-endpoint"
-
-# デフォルトで使用するカタログとスキーマを上記で指定したものに変えておく
-spark.sql(f"CREATE CATALOG IF NOT EXISTS {catalog_name}")
-spark.sql(f"USE CATALOG {catalog_name}")
-spark.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
-spark.sql(f"USE SCHEMA {schema_name}")
+# MAGIC %run ./config
 
 # COMMAND ----------
 

@@ -42,37 +42,12 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## コンフィグ
-# MAGIC #### 以下のコンフィグは、ご自身の環境に合わせて書き換えてください
+# MAGIC ## コンフィグのロード
+# MAGIC #### 別のNotebook `config` の中の変数名を自身の環境用に書き換えてから下記を実行してください。
 
 # COMMAND ----------
 
-# 前のNotebookで作成したカタログ
-catalog_name = "nabe_rag_demo_catalog"
-# 前のNotebookで作成したスキーマ
-schema_name = "rag_word"
-# 前のNotebookで作成したVector Search Endpointの名前
-vector_search_endpoint_name = "one-env-shared-prod"
-# 前のNotebookで作成したVector Search Indexの名前
-index_name = "word_rag_vector_index"
-
-# 管理者から提供されるService Principalの名前
-sp_name = "naoya.abe@databricks.com"
-# OpenAIのチャットモデルをデプロイするエンドポイントに付ける名前
-chat_model_endpoint_name = "openai-chat-endpoint-nabe"
-# RAGチェーンに付ける名前
-rag_model_name = "rag_nabe"
-# MLFlowエクスペリメントを格納するディレクトリ名
-experiment_dir_name = "nabe"
-# MLFlowエクスペリメントに付ける名前
-experiment_name = "rag_expeiment_nabe"
-# RAGCチェーンをデプロイするエンドポイントに付ける名前
-rag_endpoint_name = "rag_endpoint_nabe"
-
-spark.sql(f"CREATE CATALOG IF NOT EXISTS {catalog_name}")
-spark.sql(f"USE CATALOG {catalog_name}")
-spark.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
-spark.sql(f"USE SCHEMA {schema_name}")
+# MAGIC %run ./config
 
 # COMMAND ----------
 
@@ -99,13 +74,7 @@ spark.sql(f'GRANT USAGE ON DATABASE {catalog_name}.{schema_name} TO `{sp_name}`'
 # MAGIC <br/>
 # MAGIC 4. 管理者から提供されるService Principalに対して、`SELECT`権限を付与する
 # MAGIC <br/>
-# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/136d215a965cd212c506638acc57126dd26a01ac/rag_demo_images/grant_vs_index.png?raw=true" style="float: right" width="600px">
-
-# COMMAND ----------
-
-# DBTITLE 1,管理者から提供されるSPの Scope と Secret 名を指定
-scope_name = "fieldeng"
-secret_name = "nabe-field-eng-ws"
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/c59e134528fb56d7bcd762d73fe5167a3cf2ff82/rag_demo_images/vector_index_permission.png?raw=true" style="float: right" width="600px">
 
 # COMMAND ----------
 
@@ -117,7 +86,25 @@ os.environ['DATABRICKS_TOKEN'] = dbutils.secrets.get(f"{scope_name}", f"{secret_
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## 埋め込みモデルのサービングエンドポイントに対する権限付与
+# MAGIC 以下の手順で、GUIから埋め込みモデルのサービングエンドポイントへの権限付与を行う。<br/><br/>
+# MAGIC 1. 左のメインメニューから`Serving`を選択
+# MAGIC 2. エンドポイントの一覧から、前のNotebook「02_Vector Search Indexの構築」で自身が作成した埋め込みモデルのサービングエンドポイントを開く
+# MAGIC <br/>
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/9a0bb53524ec7009fe6167287b11431f223f17fb/rag_demo_images/model_serving_endpoint_list.png?raw=true" style="float: right" width="600px">
+# MAGIC <br/>
+# MAGIC 3. 画面右上の`Permission`ボタンから権限設定の画面を開き、Service Principalに対して`Can Manage`権限を付与する
+# MAGIC <br/>
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/9a0bb53524ec7009fe6167287b11431f223f17fb/rag_demo_images/model_serving_endpoint_permission.png?raw=true" style="float: right" width="600px">
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC ## LangChain Retriever の作成
+
+# COMMAND ----------
+
+# MAGIC %run ./config
 
 # COMMAND ----------
 
@@ -137,7 +124,7 @@ def get_retriever(persist_dir: str = None):
     # LangChainのvectorstoresオブジェクトにする
     vectorstore = DatabricksVectorSearch(vs_index)
     return vectorstore.as_retriever()
-  
+
 vectorstore_ret = get_retriever()
 
 # COMMAND ----------
@@ -153,7 +140,7 @@ print(f"Relevant documents: {similar_documents[0]}")
 # MAGIC
 # MAGIC #### このサンプルではOpenAIを使用していますが、Azure OpenAIを使用する場合は以下のドキュメントに従ってコードを変更してください
 # MAGIC https://docs.databricks.com/ja/generative-ai/external-models/external-models-tutorial.html
-# MAGIC #### 以下のコード内の`openai_api_key` は 管理者から提供されたService Principalの情報を使って、`{{secrets/スコープ名/シークレット名}}`に書き換えてください
+# MAGIC #### 以下のコード内の`openai_api_key` は 予め管理者が作成したService Principalの情報を使って、`{{secrets/スコープ名/シークレット名}}`に書き換えてください
 
 # COMMAND ----------
 
@@ -184,7 +171,7 @@ mlflow_deploy_client.create_endpoint(
 
 # COMMAND ----------
 
-# DBTITLE 1,OpenAIのチャットモデル単体でテスト
+# DBTITLE 1,OpenAIのチャットモデル単体でテスト（文脈と異なる、期待していない答え）
 from langchain.chat_models import ChatDatabricks
 
 # 今回の文脈では「サブプロセッサー」はサードパーティの事業者といった意味だが、
@@ -220,7 +207,7 @@ chain = RetrievalQA.from_chain_type(
 
 # COMMAND ----------
 
-# DBTITLE 1,RAGチェーンでテスト
+# DBTITLE 1,RAGチェーンでテスト（ドキュメントの内容を踏まえた期待通りの答え）
 # 先ほどのOpenAIのチャットモデル単体では全く違う意味の答えが返ってきたが、
 # 今度はVector Search内の情報を使って適切な答えを返してくれる
 question = {"query": "サブプロセッサーとは何ですか？"}
@@ -239,7 +226,7 @@ import requests
 
 api_key = dbutils.secrets.get(f"{scope_name}", f"{secret_name}")
 
-xp_root_path = f"/rag_demo/experiments/{experiment_dir_name}"
+xp_root_path = f"/Shared/rag_demo/experiments/{experiment_dir_name}"
 r = requests.post(f"{host}/api/2.0/workspace/mkdirs", headers = {"Accept": "application/json", "Authorization": f"Bearer {api_key}"}, json={ "path": xp_root_path})
 mlflow.set_experiment(f"{xp_root_path}/{experiment_name}")
 
@@ -295,6 +282,8 @@ with mlflow.start_run(run_name="dbdemos_chatbot_rag") as run:
 
 # MAGIC %md
 # MAGIC ## RAGチェーンをモデルサービングエンドポイントにデプロイする
+# MAGIC
+# MAGIC #### 以下のコード内の`DATABRICKS_TOKEN`と`DATABRICKS_HOST`は 予め管理者が作成したService Principalの情報を使って、`{{secrets/スコープ名/シークレット名}}`に書き換えてください
 
 # COMMAND ----------
 

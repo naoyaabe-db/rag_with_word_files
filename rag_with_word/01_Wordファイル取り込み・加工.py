@@ -14,7 +14,6 @@
 # MAGIC このNotebookでは、以下の解説されている機能・技術を使用しています。より詳細を調べたい場合は各リンク先のドキュメントをご覧ください。<br/><br/>
 # MAGIC
 # MAGIC - Spark(Python版)の基本 [(Databricks公式ドキュメント)](https://docs.databricks.com/ja/getting-started/dataframes-python.html)
-# MAGIC - AutoLoader [(Databricks公式ドキュメント)](https://docs.databricks.com/ja/ingestion/auto-loader/index.html)
 # MAGIC - Wordファイルローダー [(LangChain APIリファレンス)](https://api.python.langchain.com/en/latest/document_loaders/langchain_community.document_loaders.word_document.Docx2txtLoader.html?highlight=docx2txtloader#langchain_community.document_loaders.word_document.Docx2txtLoader)
 # MAGIC - RecursiveCharacterTextSplitter [(LangChain APIリファレンス)](https://api.python.langchain.com/en/latest/text_splitter/langchain.text_splitter.RecursiveCharacterTextSplitter.html?highlight=recursive%20text#langchain.text_splitter.RecursiveCharacterTextSplitter)
 # MAGIC - SparkのPandas UDF [(Databricks公式ドキュメント)](https://docs.databricks.com/ja/udf/pandas.html)
@@ -34,31 +33,17 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## コンフィグ
-# MAGIC #### 以下のコンフィグは、ご自身の環境に合わせて書き換えてください
+# MAGIC ## コンフィグのロード
+# MAGIC #### 別のNotebook `config` の中の変数名を自身の環境用に書き換えてから下記を実行してください。
 
 # COMMAND ----------
 
-# 作成するテーブルとVector Search Indexを格納するカタログ
-catalog_name = "nabe_rag_demo_catalog"
-# 作成するテーブルとVector Search Indexを格納するスキーマ (上記のカタログ配下にスキーマが作成されます)
-schema_name = "rag_word"
-# 生のWordファイルが格納されているVolumeのパス（外部ロケーションに直接格納している場合は、そのパス(s3://xxxxx....)でも良い）
-raw_file_path = "/Volumes/nabe_rag_demo_catalog/rag_word/raw_word_doc"
-# AutoLoaderがどのファイルまで取り込んだかを記録するための、チェックポイント情報を保存するパス。
-# Volumeまたは外部ロケーション上で任意のディレクトリを決めておき、それを指定する。
-checkpoint_path = "/Volumes/nabe_rag_demo_catalog/rag_word/autoloader_checkpoint"
-
-# デフォルトで使用するカタログとスキーマを上記で指定したものに変えておく
-spark.sql(f"CREATE CATALOG IF NOT EXISTS {catalog_name}")
-spark.sql(f"USE CATALOG {catalog_name}")
-spark.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
-spark.sql(f"USE SCHEMA {schema_name}")
+# MAGIC %run ./config
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## AutoLoaderを使用して取り込み対象のファイルをリストアップ
+# MAGIC ## 取り込み対象のファイルをリストアップ
 
 # COMMAND ----------
 
@@ -68,37 +53,24 @@ display(dbutils.fs.ls(raw_file_path))
 
 # COMMAND ----------
 
-# DBTITLE 1,AutoLoader Checkpointのリフレッシュ
-# 2回目以降に本Notebookを実行する場合で、最初のファイルから全て取り込み直したい場合は
-# 下記のチェックポイント外して実行し、チェックポイントの情報を削除する。
-
-# dbutils.fs.rm(f"{checkpoint_path}/metadata")
-# dbutils.fs.rm(f"{checkpoint_path}/commits", recurse=True)
-# dbutils.fs.rm(f"{checkpoint_path}/offsets", recurse=True)
-# dbutils.fs.rm(f"{checkpoint_path}/sources", recurse=True)
-
-# COMMAND ----------
-
 # DBTITLE 1,生ファイルのリストをテーブルに取り込む
 from pyspark.sql.functions import regexp_replace
 
 # raw_file_path内に格納されたWordファイルのリストを取得する
-df = (spark.readStream
-        .format('cloudFiles')
-        .option('cloudFiles.format', 'BINARYFILE')
-        .option("pathGlobfilter", "*.docx")
+df = (spark.read
+        .format('BINARYFILE')
+        .option("pathGlobfilter", "*.doc*")
         .load(raw_file_path)
         # Wordファイルを Volume に置いている場合はregexp_replaceを使用してパスを加工
         .withColumn("file_path", regexp_replace("path", "dbfs:", ""))
-        # Wordファイルを 外部ロケーション に置いている場合はそのまま
-        #.withColumn("file_path", "path")
-        .select("file_path", "modificationTime", "length"))
+        .select("file_path", "modificationTime", "length")
+        )
 
 # 取得したファイルリストをテーブルに書き込む
-(df.writeStream
-  .trigger(once=True)
-  .option("checkpointLocation", checkpoint_path)
-  .table('raw_word_files').awaitTermination())
+(df.write
+  .mode('overwrite')
+  .saveAsTable("raw_word_files")
+  )
 
 # COMMAND ----------
 
