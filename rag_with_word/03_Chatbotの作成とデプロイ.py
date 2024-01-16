@@ -56,8 +56,6 @@
 
 # COMMAND ----------
 
-index_name=f"{catalog_name}.{schema_name}.{index_name}"
-
 spark.sql(f'GRANT USAGE ON CATALOG {catalog_name} TO `{sp_name}`');
 spark.sql(f'GRANT USAGE ON DATABASE {catalog_name}.{schema_name} TO `{sp_name}`');
 
@@ -101,10 +99,6 @@ os.environ['DATABRICKS_TOKEN'] = dbutils.secrets.get(f"{scope_name}", f"{secret_
 
 # MAGIC %md
 # MAGIC ## LangChain Retriever の作成
-
-# COMMAND ----------
-
-# MAGIC %run ./config
 
 # COMMAND ----------
 
