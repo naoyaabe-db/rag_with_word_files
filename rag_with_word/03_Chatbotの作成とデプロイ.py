@@ -148,24 +148,27 @@ import mlflow.deployments
 # MLFLow Deployments の各種機能を操作するためのクライアントを用意
 mlflow_deploy_client = mlflow.deployments.get_deploy_client("databricks")
 
-# MLFLow Deployments のクライアントを使い、OpenAIのチャットモデル(gpt-3.5-turbo)への
-# Proxyとなるモデルサービングエンドポイントを作成する
-mlflow_deploy_client.create_endpoint(
-    name=chat_model_endpoint_name,
-    config={
-        "served_entities": [{
-            "external_model": {
-                "name": "gpt-3.5-turbo",
-                "provider": "openai",
-                "task": "llm/v1/chat",
-                "openai_config": {
-                    # 下記は管理者から提供されたService Principalのシークレット情報で書き換える
-                    "openai_api_key": "{{secrets/fieldeng/nabe_openai}}"
+try:
+    # MLFLow Deployments のクライアントを使い、OpenAIのチャットモデル(gpt-3.5-turbo)への
+    # Proxyとなるモデルサービングエンドポイントを作成する
+    mlflow_deploy_client.create_endpoint(
+        name=chat_model_endpoint_name,
+        config={
+            "served_entities": [{
+                "external_model": {
+                    "name": "gpt-3.5-turbo",
+                    "provider": "openai",
+                    "task": "llm/v1/chat",
+                    "openai_config": {
+                        # 下記は管理者から提供されたService Principalのシークレット情報で書き換える
+                        "openai_api_key": "{{secrets/fieldeng/nabe_openai}}"
+                    }
                 }
-            }
-    }]
-    }
-)
+        }]
+        }
+    )
+except Exception as e:
+    print(e)
 
 # COMMAND ----------
 

@@ -61,24 +61,27 @@ import mlflow.deployments
 # MLFLow Deployments の各種機能を操作するためのクライアントを用意
 mlflow_deploy_client = mlflow.deployments.get_deploy_client("databricks")
 
-# MLFLow Deployments のクライアントを使い、OpenAIの埋め込みモデル(text-embedding-ada-002)への
-# Proxyとなるモデルサービングエンドポイントを作成する
-mlflow_deploy_client.create_endpoint(
-    name="openai-embedding-endpoint",
-    config={
-        "served_entities": [{
-            "external_model": {
-                "name": "text-embedding-ada-002",
-                "provider": "openai",
-                "task": "llm/v1/embeddings",
-                "openai_config": {
-                    # 下記は管理者から提供されたService Principalのシークレット情報で書き換える
-                    "openai_api_key": "{{secrets/fieldeng/nabe_openai}}"
+try:
+    # MLFLow Deployments のクライアントを使い、OpenAIの埋め込みモデル(text-embedding-ada-002)への
+    # Proxyとなるモデルサービングエンドポイントを作成する
+    mlflow_deploy_client.create_endpoint(
+        name="openai-embedding-endpoint",
+        config={
+            "served_entities": [{
+                "external_model": {
+                    "name": "text-embedding-ada-002",
+                    "provider": "openai",
+                    "task": "llm/v1/embeddings",
+                    "openai_config": {
+                        # 下記は管理者から提供されたService Principalのシークレット情報で書き換える
+                        "openai_api_key": "{{secrets/fieldeng/nabe_openai}}"
+                    }
                 }
-            }
-    }]
-    }
-)
+        }]
+        }
+    )
+except Exception as e:
+    print(e)
 
 # COMMAND ----------
 
@@ -115,24 +118,27 @@ vector_search_client = VectorSearchClient()
 # COMMAND ----------
 
 # DBTITLE 1,Managed Embedding方式でVector Search Indexを作成
-# Vector Search Indexの作成
-index = vector_search_client.create_delta_sync_index(
-  # 上で作成したVector Search Endpointの名前
-  endpoint_name=vector_search_endpoint_name,
-  # チャンク化したコンテンツが入ったテーブル
-  source_table_name=f"{catalog_name}.{schema_name}.{source_table_name}",
-  # 作成するVector Search Indexの名前
-  index_name=f"{catalog_name}.{schema_name}.{index_name}",
-  # ソーステーブルへのコンテンツ追加が自動で同期されるよう設定する場合はCONTINUOUSにする
-  # デモ環境の都合でここではTRIGGEREDにしている
-  pipeline_type='TRIGGERED',
-  # PKとして使用するカラム名
-  primary_key="id",
-  # チャンク化したコンテンツが入ったカラム名
-  embedding_source_column="content",
-  # 埋め込みモデルのサービングエンドポイント名
-  embedding_model_endpoint_name=embedding_endpoint_name
-)
+try:
+    # Vector Search Indexの作成
+    index = vector_search_client.create_delta_sync_index(
+      # 上で作成したVector Search Endpointの名前
+      endpoint_name=vector_search_endpoint_name,
+      # チャンク化したコンテンツが入ったテーブル
+      source_table_name=f"{catalog_name}.{schema_name}.{source_table_name}",
+      # 作成するVector Search Indexの名前
+      index_name=f"{catalog_name}.{schema_name}.{index_name}",
+      # ソーステーブルへのコンテンツ追加が自動で同期されるよう設定する場合はCONTINUOUSにする
+      # デモ環境の都合でここではTRIGGEREDにしている
+      pipeline_type='TRIGGERED',
+      # PKとして使用するカラム名
+      primary_key="id",
+      # チャンク化したコンテンツが入ったカラム名
+      embedding_source_column="content",
+      # 埋め込みモデルのサービングエンドポイント名
+      embedding_model_endpoint_name=embedding_endpoint_name
+    )
+except Exception as e:
+    print(e)
 
 # COMMAND ----------
 
