@@ -2,6 +2,10 @@
 # MAGIC %md
 # MAGIC # 3. Chatbotの作成とデプロイ
 # MAGIC
+# MAGIC <br/>
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/3380b6d73937cd95efae845799c37de910b7394c/rag_demo_images/diagram_notebook3.png?raw=true" style="float: right" width="1000px">
+# MAGIC <br/>
+# MAGIC
 # MAGIC ### このNotebookの流れ
 # MAGIC このNotebookでは、OpenAIのチャットモデルと前のNotebookで作成したVector Search Indexを組み合わせて、RAGを使用したChatbotを完成させます。<br/><br/>
 # MAGIC

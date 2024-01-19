@@ -2,6 +2,10 @@
 # MAGIC %md
 # MAGIC # 1. Wordファイル取り込み・加工
 # MAGIC
+# MAGIC <br/>
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/3380b6d73937cd95efae845799c37de910b7394c/rag_demo_images/diagram_notebook1.png?raw=true" style="float: right" width="1000px">
+# MAGIC <br/>
+# MAGIC
 # MAGIC ### このNotebookの流れ
 # MAGIC このNotebookでは、Volumeまたは外部ロケーションに配置したWordファイルを取り込み、<br/>
 # MAGIC 加工・チャンク化した上でテーブルに書き出すところまでを行います。以下の流れです。<br/><br/>

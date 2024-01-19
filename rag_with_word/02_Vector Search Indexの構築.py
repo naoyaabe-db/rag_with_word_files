@@ -2,6 +2,10 @@
 # MAGIC %md
 # MAGIC # 2. Vector Search Index の構築
 # MAGIC
+# MAGIC <br/>
+# MAGIC <img src="https://github.com/naoyaabe-db/public_demo_images/blob/3380b6d73937cd95efae845799c37de910b7394c/rag_demo_images/diagram_notebook2.png?raw=true" style="float: right" width="1000px">
+# MAGIC <br/>
+# MAGIC
 # MAGIC ### このNotebookの流れ
 # MAGIC このNotebookでは、前のNotebookで加工・チャンク化したコンテンツをベクトル化し、Vector Search Indexで類似検索が行えるようにします。<br/><br/>
 # MAGIC
