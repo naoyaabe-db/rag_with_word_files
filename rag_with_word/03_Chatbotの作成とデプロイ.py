@@ -250,6 +250,8 @@ def get_latest_model_version(model_name):
 # DBTITLE 1,評価用データセットの準備
 import pandas as pd
 
+# デモのため、3件のみのテストデータセットを手動で作成
+# 入力(質問)を入れたカラムの名前を上でテストした時のものに合わせ、「query」とすること
 eval_df = pd.DataFrame(
     {
         "query": [
@@ -296,11 +298,14 @@ with mlflow.start_run(run_name="dbdemos_chatbot_rag") as run:
 
     # モデルの評価
     results = mlflow.evaluate(
+        # 上記でロギングしたモデルのURI
         model_info.model_uri,
+        # テストデータセットが入ったDataFrame
         eval_df,
+        # 正解(模範回答)を入れたカラムの名前
         targets="ground_truth",
-        model_type="question-answering",
-        evaluators="default"
+        # タスクの種類を質問応答で指定
+        model_type="question-answering"
     )
 
     import mlflow.models.utils
