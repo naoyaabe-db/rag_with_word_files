@@ -218,7 +218,7 @@ print(answer)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 作成したRAGチェーンをMLFlowモデルレジストリへ登録する
+# MAGIC ## 作成したRAGチェーンの登録と評価
 
 # COMMAND ----------
 
@@ -247,7 +247,27 @@ def get_latest_model_version(model_name):
 
 # COMMAND ----------
 
-# DBTITLE 1,RAGチェーンをMLFlowにロギングし、モデルレジストリに登録
+# DBTITLE 1,評価用データセットの準備
+import pandas as pd
+
+eval_df = pd.DataFrame(
+    {
+        "query": [
+            "「パーソナル データ」の定義を教えてください",
+            "サブプロセッサーにはどのような義務がありますか？",
+            "データの暗号化について、Databricksがどのような取り組みを行なっているか教えてください"
+        ],
+        "ground_truth": [
+            "パーソナルデータとは、顧客コンテンツに含まれる、または Databricks サービスの提供において顧客によって、または顧客に代わって、本契約に基づいて処理するために Databricks に提供される、すべての「個人データ」または「個人情報」を意味します。",
+            "Databricks は、下請処理者と書面による契約を締結するものとします。これには、契約および本 DPA と同様に個人データを保護するデータ保護およびセキュリティ対策が含まれます。 その下請処理者の作為、誤りまたは不作為が原因である本契約および本 DPA の違反に対して、Databricks がそのような作為、誤りまたは不作為に対して責任を負っていたであろう範囲で、完全に責任を負います。",
+            "転送中のデータは、お客様とDatabricksコントロールプレーン間、およびDatabricksコントロールプレーンとデータプレーン間で暗号されています。暗号的には、安全なプロトコル (TLS v.1.2 以上) を使用しています。また、Databricksコントロールプレーン内に保存されているデータは、安全なプロトコル (AES-128 ビット、または同等以上) を使用して暗号化されます。",
+        ],
+    }
+)
+
+# COMMAND ----------
+
+# DBTITLE 1,MLFlowによるロギング、モデルレジストリ登録、評価
 from mlflow.models import infer_signature
 import mlflow
 import langchain
@@ -272,6 +292,15 @@ with mlflow.start_run(run_name="dbdemos_chatbot_rag") as run:
         ],
         input_example=question,
         signature=signature
+    )
+
+    # モデルの評価
+    results = mlflow.evaluate(
+        model_info.model_uri,
+        eval_df,
+        targets="ground_truth",
+        model_type="question-answering",
+        evaluators="default"
     )
 
     import mlflow.models.utils
