@@ -1,98 +1,94 @@
 Collecting databricks-vectorsearch
   Downloading databricks_vectorsearch-0.22-py3-none-any.whl (8.5 kB)
 Collecting mlflow[genai]
-  Downloading mlflow-2.9.2-py3-none-any.whl (19.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.1/19.1 MB 40.2 MB/s eta 0:00:00
+  Downloading mlflow-2.10.2-py3-none-any.whl (19.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.5/19.5 MB 41.2 MB/s eta 0:00:00
 Collecting langchain==0.0.344
   Downloading langchain-0.0.344-py3-none-any.whl (1.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 58.7 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 58.6 MB/s eta 0:00:00
 Collecting databricks-sdk==0.12.0
   Downloading databricks_sdk-0.12.0-py3-none-any.whl (301 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 301.7/301.7 kB 30.4 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 301.7/301.7 kB 29.1 MB/s eta 0:00:00
 Requirement already satisfied: aiohttp<4.0.0,>=3.8.3 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (3.8.6)
-Requirement already satisfied: dataclasses-json<0.7,>=0.5.7 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (0.6.2)
 Requirement already satisfied: langsmith<0.1.0,>=0.0.63 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (0.0.64)
+Requirement already satisfied: SQLAlchemy<3,>=1.4 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.4.39)
 Requirement already satisfied: jsonpatch<2.0,>=1.33 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.33)
-Requirement already satisfied: pydantic<3,>=1 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.10.6)
-Requirement already satisfied: numpy<2,>=1 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.23.5)
-Requirement already satisfied: requests<3,>=2 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (2.28.1)
-Requirement already satisfied: anyio<4.0 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (3.5.0)
+Requirement already satisfied: PyYAML>=5.3 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (6.0)
 Collecting langchain-core<0.1,>=0.0.8
   Downloading langchain_core-0.0.13-py3-none-any.whl (188 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.2/188.2 kB 20.4 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.2/188.2 kB 22.2 MB/s eta 0:00:00
 Requirement already satisfied: tenacity<9.0.0,>=8.1.0 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (8.1.0)
-Requirement already satisfied: PyYAML>=5.3 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (6.0)
+Requirement already satisfied: anyio<4.0 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (3.5.0)
 Requirement already satisfied: async-timeout<5.0.0,>=4.0.0 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (4.0.3)
-Requirement already satisfied: SQLAlchemy<3,>=1.4 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.4.39)
-Requirement already satisfied: protobuf<5,>=3.12.0 in /databricks/python3/lib/python3.10/site-packages (from databricks-vectorsearch) (4.24.0)
+Requirement already satisfied: numpy<2,>=1 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.23.5)
+Requirement already satisfied: dataclasses-json<0.7,>=0.5.7 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (0.6.2)
+Requirement already satisfied: requests<3,>=2 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (2.28.1)
+Requirement already satisfied: pydantic<3,>=1 in /databricks/python3/lib/python3.10/site-packages (from langchain==0.0.344) (1.10.6)
 Requirement already satisfied: mlflow-skinny<3,>=2.4.0 in /databricks/python3/lib/python3.10/site-packages (from databricks-vectorsearch) (2.8.1)
-Requirement already satisfied: entrypoints<1 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (0.4)
-Requirement already satisfied: databricks-cli<1,>=0.8.7 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (0.18.0)
+Requirement already satisfied: protobuf<5,>=3.12.0 in /databricks/python3/lib/python3.10/site-packages (from databricks-vectorsearch) (4.24.0)
+Requirement already satisfied: scikit-learn<2 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (1.1.1)
+Requirement already satisfied: pytz<2024 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2022.7)
 Collecting querystring-parser<2
   Downloading querystring_parser-1.2.4-py2.py3-none-any.whl (7.9 kB)
-Requirement already satisfied: packaging<24 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (22.0)
-Requirement already satisfied: Jinja2<4,>=2.11 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.1.2)
-Requirement already satisfied: matplotlib<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.7.0)
 Requirement already satisfied: sqlparse<1,>=0.4.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (0.4.2)
-Requirement already satisfied: click<9,>=7.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (8.0.4)
-Requirement already satisfied: gunicorn<22 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (20.1.0)
-Requirement already satisfied: Flask<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2.2.5)
-Requirement already satisfied: pytz<2024 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2022.7)
-Requirement already satisfied: markdown<4,>=3.3 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.4.1)
-Requirement already satisfied: pyarrow<15,>=4.0.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (8.0.0)
-Requirement already satisfied: cloudpickle<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2.0.0)
+Requirement already satisfied: packaging<24 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (22.0)
+Requirement already satisfied: pyarrow<16,>=4.0.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (8.0.0)
 Requirement already satisfied: gitpython<4,>=2.1.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.1.27)
+Requirement already satisfied: click<9,>=7.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (8.0.4)
+Requirement already satisfied: entrypoints<1 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (0.4)
 Requirement already satisfied: scipy<2 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (1.10.0)
-Requirement already satisfied: pandas<3 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (1.5.3)
 Requirement already satisfied: importlib-metadata!=4.7.0,<8,>=3.7.0 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (4.11.3)
-Collecting docker<7,>=4.0.0
-  Downloading docker-6.1.3-py3-none-any.whl (148 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 148.1/148.1 kB 17.6 MB/s eta 0:00:00
-Requirement already satisfied: scikit-learn<2 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (1.1.1)
+Requirement already satisfied: Flask<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2.2.5)
+Requirement already satisfied: gunicorn<22 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (20.1.0)
+Requirement already satisfied: markdown<4,>=3.3 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.4.1)
+Requirement already satisfied: pandas<3 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (1.5.3)
+Requirement already satisfied: cloudpickle<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (2.0.0)
+Collecting docker<8,>=4.0.0
+  Downloading docker-7.0.0-py3-none-any.whl (147 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 147.6/147.6 kB 12.6 MB/s eta 0:00:00
+Requirement already satisfied: Jinja2<4,>=2.11 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.1.2)
 Collecting alembic!=1.10.0,<2
   Downloading alembic-1.13.1-py3-none-any.whl (233 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 233.4/233.4 kB 29.7 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 233.4/233.4 kB 26.2 MB/s eta 0:00:00
+Requirement already satisfied: matplotlib<4 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (3.7.0)
 Collecting fastapi<1
-  Downloading fastapi-0.109.0-py3-none-any.whl (92 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 92.0/92.0 kB 13.4 MB/s eta 0:00:00
-Collecting watchfiles<1
-  Downloading watchfiles-0.21.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 64.1 MB/s eta 0:00:00
+  Downloading fastapi-0.109.2-py3-none-any.whl (92 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 92.1/92.1 kB 11.8 MB/s eta 0:00:00
 Requirement already satisfied: tiktoken<1 in /databricks/python3/lib/python3.10/site-packages (from mlflow[genai]) (0.5.1)
 Collecting boto3<2,>=1.28.56
-  Downloading boto3-1.34.25-py3-none-any.whl (139 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.3/139.3 kB 15.0 MB/s eta 0:00:00
+  Downloading boto3-1.34.40-py3-none-any.whl (139 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.3/139.3 kB 17.8 MB/s eta 0:00:00
 Collecting uvicorn[standard]<1
-  Downloading uvicorn-0.27.0-py3-none-any.whl (60 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.6/60.6 kB 9.6 MB/s eta 0:00:00
-Requirement already satisfied: attrs>=17.3.0 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (22.1.0)
+  Downloading uvicorn-0.27.1-py3-none-any.whl (60 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.8/60.8 kB 9.0 MB/s eta 0:00:00
+Collecting slowapi<1
+  Downloading slowapi-0.1.9-py3-none-any.whl (14 kB)
+Collecting watchfiles<1
+  Downloading watchfiles-0.21.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 61.0 MB/s eta 0:00:00
 Requirement already satisfied: aiosignal>=1.1.2 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (1.3.1)
 Requirement already satisfied: frozenlist>=1.1.1 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (1.4.0)
 Requirement already satisfied: charset-normalizer<4.0,>=2.0 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (2.0.4)
-Requirement already satisfied: multidict<7.0,>=4.5 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (6.0.4)
+Requirement already satisfied: attrs>=17.3.0 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (22.1.0)
 Requirement already satisfied: yarl<2.0,>=1.0 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (1.9.2)
-Requirement already satisfied: typing-extensions>=4 in /databricks/python3/lib/python3.10/site-packages (from alembic!=1.10.0,<2->mlflow[genai]) (4.4.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in /databricks/python3/lib/python3.10/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain==0.0.344) (6.0.4)
 Requirement already satisfied: Mako in /databricks/python3/lib/python3.10/site-packages (from alembic!=1.10.0,<2->mlflow[genai]) (1.2.0)
-Requirement already satisfied: idna>=2.8 in /databricks/python3/lib/python3.10/site-packages (from anyio<4.0->langchain==0.0.344) (3.4)
+Requirement already satisfied: typing-extensions>=4 in /databricks/python3/lib/python3.10/site-packages (from alembic!=1.10.0,<2->mlflow[genai]) (4.4.0)
 Requirement already satisfied: sniffio>=1.1 in /databricks/python3/lib/python3.10/site-packages (from anyio<4.0->langchain==0.0.344) (1.2.0)
+Requirement already satisfied: idna>=2.8 in /databricks/python3/lib/python3.10/site-packages (from anyio<4.0->langchain==0.0.344) (3.4)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /databricks/python3/lib/python3.10/site-packages (from boto3<2,>=1.28.56->mlflow[genai]) (0.10.0)
 Collecting s3transfer<0.11.0,>=0.10.0
   Downloading s3transfer-0.10.0-py3-none-any.whl (82 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.1/82.1 kB 12.1 MB/s eta 0:00:00
-Collecting botocore<1.35.0,>=1.34.25
-  Downloading botocore-1.34.25-py3-none-any.whl (11.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.9/11.9 MB 64.6 MB/s eta 0:00:00
-Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /databricks/python3/lib/python3.10/site-packages (from boto3<2,>=1.28.56->mlflow[genai]) (0.10.0)
-Requirement already satisfied: pyjwt>=1.7.0 in /usr/lib/python3/dist-packages (from databricks-cli<1,>=0.8.7->mlflow[genai]) (2.3.0)
-Requirement already satisfied: oauthlib>=3.1.0 in /usr/lib/python3/dist-packages (from databricks-cli<1,>=0.8.7->mlflow[genai]) (3.2.0)
-Requirement already satisfied: urllib3<3,>=1.26.7 in /databricks/python3/lib/python3.10/site-packages (from databricks-cli<1,>=0.8.7->mlflow[genai]) (1.26.14)
-Requirement already satisfied: tabulate>=0.7.7 in /databricks/python3/lib/python3.10/site-packages (from databricks-cli<1,>=0.8.7->mlflow[genai]) (0.8.10)
-Requirement already satisfied: six>=1.10.0 in /usr/lib/python3/dist-packages (from databricks-cli<1,>=0.8.7->mlflow[genai]) (1.16.0)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.1/82.1 kB 13.1 MB/s eta 0:00:00
+Collecting botocore<1.35.0,>=1.34.40
+  Downloading botocore-1.34.40-py3-none-any.whl (12.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 60.8 MB/s eta 0:00:00
 Requirement already satisfied: marshmallow<4.0.0,>=3.18.0 in /databricks/python3/lib/python3.10/site-packages (from dataclasses-json<0.7,>=0.5.7->langchain==0.0.344) (3.20.1)
 Requirement already satisfied: typing-inspect<1,>=0.4.0 in /databricks/python3/lib/python3.10/site-packages (from dataclasses-json<0.7,>=0.5.7->langchain==0.0.344) (0.9.0)
-Requirement already satisfied: websocket-client>=0.32.0 in /databricks/python3/lib/python3.10/site-packages (from docker<7,>=4.0.0->mlflow[genai]) (0.58.0)
-Collecting starlette<0.36.0,>=0.35.0
-  Downloading starlette-0.35.1-py3-none-any.whl (71 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.1/71.1 kB 11.3 MB/s eta 0:00:00
+Requirement already satisfied: urllib3>=1.26.0 in /databricks/python3/lib/python3.10/site-packages (from docker<8,>=4.0.0->mlflow[genai]) (1.26.14)
+Collecting starlette<0.37.0,>=0.36.3
+  Downloading starlette-0.36.3-py3-none-any.whl (71 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.5/71.5 kB 9.9 MB/s eta 0:00:00
 Collecting typing-extensions>=4
   Downloading typing_extensions-4.9.0-py3-none-any.whl (32 kB)
 Requirement already satisfied: Werkzeug>=2.2.2 in /databricks/python3/lib/python3.10/site-packages (from Flask<4->mlflow[genai]) (2.2.2)
@@ -104,61 +100,73 @@ Requirement already satisfied: MarkupSafe>=2.0 in /databricks/python3/lib/python
 Requirement already satisfied: jsonpointer>=1.9 in /databricks/python3/lib/python3.10/site-packages (from jsonpatch<2.0,>=1.33->langchain==0.0.344) (2.4)
 Collecting packaging<24
   Using cached packaging-23.2-py3-none-any.whl (53 kB)
-Requirement already satisfied: fonttools>=4.22.0 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (4.25.0)
-Requirement already satisfied: python-dateutil>=2.7 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (2.8.2)
-Requirement already satisfied: pyparsing>=2.3.1 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (3.0.9)
-Requirement already satisfied: kiwisolver>=1.0.1 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (1.4.4)
 Requirement already satisfied: pillow>=6.2.0 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (9.4.0)
 Requirement already satisfied: contourpy>=1.0.1 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (1.0.5)
 Requirement already satisfied: cycler>=0.10 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (0.11.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (1.4.4)
+Requirement already satisfied: pyparsing>=2.3.1 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (3.0.9)
+Requirement already satisfied: fonttools>=4.22.0 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (4.25.0)
+Requirement already satisfied: python-dateutil>=2.7 in /databricks/python3/lib/python3.10/site-packages (from matplotlib<4->mlflow[genai]) (2.8.2)
+Requirement already satisfied: databricks-cli<1,>=0.8.7 in /databricks/python3/lib/python3.10/site-packages (from mlflow-skinny<3,>=2.4.0->databricks-vectorsearch) (0.18.0)
+Requirement already satisfied: six in /usr/lib/python3/dist-packages (from querystring-parser<2->mlflow[genai]) (1.16.0)
 Requirement already satisfied: certifi>=2017.4.17 in /databricks/python3/lib/python3.10/site-packages (from requests<3,>=2->langchain==0.0.344) (2022.12.7)
 Requirement already satisfied: threadpoolctl>=2.0.0 in /databricks/python3/lib/python3.10/site-packages (from scikit-learn<2->mlflow[genai]) (2.2.0)
 Requirement already satisfied: joblib>=1.0.0 in /databricks/python3/lib/python3.10/site-packages (from scikit-learn<2->mlflow[genai]) (1.2.0)
+Collecting limits>=2.3
+  Downloading limits-3.7.0-py3-none-any.whl (43 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 kB 6.2 MB/s eta 0:00:00
 Requirement already satisfied: greenlet!=0.4.17 in /databricks/python3/lib/python3.10/site-packages (from SQLAlchemy<3,>=1.4->langchain==0.0.344) (2.0.1)
 Requirement already satisfied: regex>=2022.1.18 in /databricks/python3/lib/python3.10/site-packages (from tiktoken<1->mlflow[genai]) (2022.7.9)
 Collecting h11>=0.8
   Downloading h11-0.14.0-py3-none-any.whl (58 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.3/58.3 kB 9.7 MB/s eta 0:00:00
-Collecting websockets>=10.4
-  Downloading websockets-12.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (130 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.2/130.2 kB 18.9 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.3/58.3 kB 8.4 MB/s eta 0:00:00
+Collecting python-dotenv>=0.13
+  Downloading python_dotenv-1.0.1-py3-none-any.whl (19 kB)
 Collecting uvloop!=0.15.0,!=0.15.1,>=0.14.0
   Downloading uvloop-0.19.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 64.4 MB/s eta 0:00:00
-Collecting python-dotenv>=0.13
-  Downloading python_dotenv-1.0.0-py3-none-any.whl (19 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 68.1 MB/s eta 0:00:00
 Collecting httptools>=0.5.0
   Downloading httptools-0.6.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (341 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 341.4/341.4 kB 32.5 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 341.4/341.4 kB 30.8 MB/s eta 0:00:00
+Collecting websockets>=10.4
+  Downloading websockets-12.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (130 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.2/130.2 kB 17.2 MB/s eta 0:00:00
+Requirement already satisfied: pyjwt>=1.7.0 in /usr/lib/python3/dist-packages (from databricks-cli<1,>=0.8.7->mlflow-skinny<3,>=2.4.0->databricks-vectorsearch) (2.3.0)
+Requirement already satisfied: oauthlib>=3.1.0 in /usr/lib/python3/dist-packages (from databricks-cli<1,>=0.8.7->mlflow-skinny<3,>=2.4.0->databricks-vectorsearch) (3.2.0)
+Requirement already satisfied: tabulate>=0.7.7 in /databricks/python3/lib/python3.10/site-packages (from databricks-cli<1,>=0.8.7->mlflow-skinny<3,>=2.4.0->databricks-vectorsearch) (0.8.10)
 Requirement already satisfied: smmap<6,>=3.0.1 in /databricks/python3/lib/python3.10/site-packages (from gitdb<5,>=4.0.1->gitpython<4,>=2.1.0->mlflow[genai]) (5.0.0)
+Requirement already satisfied: importlib-resources>=1.3 in /databricks/python3/lib/python3.10/site-packages (from limits>=2.3->slowapi<1->mlflow[genai]) (6.1.1)
+Collecting deprecated>=1.2
+  Downloading Deprecated-1.2.14-py2.py3-none-any.whl (9.6 kB)
 Requirement already satisfied: mypy-extensions>=0.3.0 in /databricks/python3/lib/python3.10/site-packages (from typing-inspect<1,>=0.4.0->dataclasses-json<0.7,>=0.5.7->langchain==0.0.344) (0.4.3)
-Installing collected packages: websockets, uvloop, typing-extensions, querystring-parser, python-dotenv, packaging, httptools, h11, watchfiles, uvicorn, starlette, docker, databricks-sdk, botocore, alembic, s3transfer, mlflow, fastapi, langchain-core, databricks-vectorsearch, boto3, langchain
+Requirement already satisfied: wrapt<2,>=1.10 in /databricks/python3/lib/python3.10/site-packages (from deprecated>=1.2->limits>=2.3->slowapi<1->mlflow[genai]) (1.14.1)
+Installing collected packages: websockets, uvloop, typing-extensions, querystring-parser, python-dotenv, packaging, httptools, h11, deprecated, watchfiles, uvicorn, starlette, limits, docker, databricks-sdk, botocore, alembic, slowapi, s3transfer, mlflow, fastapi, langchain-core, databricks-vectorsearch, boto3, langchain
   Attempting uninstall: typing-extensions
     Found existing installation: typing_extensions 4.4.0
-    Not uninstalling typing-extensions at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling typing-extensions at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'typing_extensions'. No files were found to uninstall.
   Attempting uninstall: packaging
     Found existing installation: packaging 22.0
-    Not uninstalling packaging at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling packaging at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'packaging'. No files were found to uninstall.
   Attempting uninstall: databricks-sdk
     Found existing installation: databricks-sdk 0.1.6
-    Not uninstalling databricks-sdk at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling databricks-sdk at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'databricks-sdk'. No files were found to uninstall.
   Attempting uninstall: botocore
     Found existing installation: botocore 1.27.96
-    Not uninstalling botocore at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling botocore at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'botocore'. No files were found to uninstall.
   Attempting uninstall: s3transfer
     Found existing installation: s3transfer 0.6.2
-    Not uninstalling s3transfer at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling s3transfer at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 's3transfer'. No files were found to uninstall.
   Attempting uninstall: boto3
     Found existing installation: boto3 1.24.28
-    Not uninstalling boto3 at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling boto3 at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'boto3'. No files were found to uninstall.
   Attempting uninstall: langchain
     Found existing installation: langchain 0.0.314
-    Not uninstalling langchain at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-33410d46-5814-4fc4-86a2-8e5ebd23ae3d
+    Not uninstalling langchain at /databricks/python3/lib/python3.10/site-packages, outside environment /local_disk0/.ephemeral_nfs/envs/pythonEnv-ea10ae3d-6933-4a04-9d7a-1fe14a7a20e5
     Can't uninstall 'langchain'. No files were found to uninstall.
-Successfully installed alembic-1.13.1 boto3-1.34.25 botocore-1.34.25 databricks-sdk-0.12.0 databricks-vectorsearch-0.22 docker-6.1.3 fastapi-0.109.0 h11-0.14.0 httptools-0.6.1 langchain-0.0.344 langchain-core-0.0.13 mlflow-2.9.2 packaging-23.2 python-dotenv-1.0.0 querystring-parser-1.2.4 s3transfer-0.10.0 starlette-0.35.1 typing-extensions-4.9.0 uvicorn-0.27.0 uvloop-0.19.0 watchfiles-0.21.0 websockets-12.0
+Successfully installed alembic-1.13.1 boto3-1.34.40 botocore-1.34.40 databricks-sdk-0.12.0 databricks-vectorsearch-0.22 deprecated-1.2.14 docker-7.0.0 fastapi-0.109.2 h11-0.14.0 httptools-0.6.1 langchain-0.0.344 langchain-core-0.0.13 limits-3.7.0 mlflow-2.10.2 packaging-23.2 python-dotenv-1.0.1 querystring-parser-1.2.4 s3transfer-0.10.0 slowapi-0.1.9 starlette-0.36.3 typing-extensions-4.9.0 uvicorn-0.27.1 uvloop-0.19.0 watchfiles-0.21.0 websockets-12.0

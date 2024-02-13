@@ -84,6 +84,7 @@ import os
 
 host = "https://" + spark.conf.get("spark.databricks.workspaceUrl")
 os.environ['DATABRICKS_TOKEN'] = dbutils.secrets.get(f"{scope_name}", f"{secret_name}")
+os.environ['OPENAI_API_KEY'] = dbutils.secrets.get(f"{openai_scope_name}", f"{openai_secret_name}")
 
 # COMMAND ----------
 
@@ -273,6 +274,7 @@ eval_df = pd.DataFrame(
 from mlflow.models import infer_signature
 import mlflow
 import langchain
+from mlflow.metrics.genai import answer_similarity, answer_correctness, answer_relevance
 
 # Databricks Unity Catalog上にモデルを保存するよう指定
 mlflow.set_registry_uri("databricks-uc")
@@ -305,13 +307,29 @@ with mlflow.start_run(run_name="dbdemos_chatbot_rag") as run:
         # 正解(模範回答)を入れたカラムの名前
         targets="ground_truth",
         # タスクの種類を質問応答で指定
-        model_type="question-answering"
+        model_type="question-answering",
+        # 評価指標を追加
+        extra_metrics=[
+            answer_similarity(),
+            answer_correctness(),
+            answer_relevance()
+            ],
+        evaluators="default",
+        evaluator_config={"col_mapping": {"inputs": "query"}}
     )
 
     import mlflow.models.utils
     mlflow.models.utils.add_libraries_to_model(
         f"models:/{model_name}/{get_latest_model_version(model_name)}"
     )
+
+# COMMAND ----------
+
+from  mlflow.metrics.genai.metric_definitions import answer_relevance
+
+# COMMAND ----------
+
+answer_relevance()
 
 # COMMAND ----------
 

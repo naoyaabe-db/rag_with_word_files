@@ -46,6 +46,9 @@ scope_name = "fieldeng"
 # 予め作成したService Principalに紐づくPATが保存されたSecret Keyの名前
 secret_name = "nabe-field-eng-ws"
 
+openai_scope_name = "fieldeng"
+openai_secret_name = "nabe_openai"
+
 # COMMAND ----------
 
 # DBTITLE 1,デフォルトのカタログ・スキーマを指定
