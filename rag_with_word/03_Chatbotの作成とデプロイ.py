@@ -325,14 +325,6 @@ with mlflow.start_run(run_name="dbdemos_chatbot_rag") as run:
 
 # COMMAND ----------
 
-from  mlflow.metrics.genai.metric_definitions import answer_relevance
-
-# COMMAND ----------
-
-answer_relevance()
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC ## RAGチェーンをモデルサービングエンドポイントにデプロイする
 # MAGIC
